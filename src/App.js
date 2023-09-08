@@ -5,9 +5,9 @@ import { Device, Localization,Metrics } from "@firebolt-js/sdk";
 import { MyButton } from "./MyButton";
 
 
-const videoUrlList = ['https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
-'https://livesim.dashif.org/livesim/mup_300/tsbd_500/testpic_2s/Manifest.mpd',
-'https://livesim.dashif.org/livesim/mup_300/tsbd_500/testpic_3s/Manifest.mpd']
+// const videoUrlList = ['https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)',
+// 'https://dash.akamaized.net/dash264/TestCasesHEVC/1a/2/BBB_OnDemand_HEVC_MultiRate.mpd',
+// 'https://livesim.dashif.org/livesim/mup_300/tsbd_500/testpic_2s/Manifest.mpd']
 
 // const LifecycleColors = {
 //   // BLUE
@@ -48,10 +48,11 @@ export  class App extends Lightning.Component {
           //   },
           // },
           Rdklogo: {
-            x: 30,
-            y: 40,
+            x: 50,
+            y: 50,
             w: 300,
             h: 80,
+            zIndex: 1,
             shadowColor: 0xffff00ff,
             src: Utils.asset("images/rdklogo.png"),
           },
@@ -179,14 +180,13 @@ export  class App extends Lightning.Component {
 
   _init() {
     this.index = 0;
-    this.dataLength = 3;
+    this.dataLength = 5;
     const buttons = [];
     // this._player = new AAMPMediaPlayer();
 
     for (let i = 0; i < this.dataLength; i++) {
       buttons.push(
-        { type: MyButton, x: i * (300 + 30), item: { label: `Train`, src: Utils.asset(`images/cardImage${i + 1}.jpg`),
-      videoUrl: videoUrlList[i]} }, 
+        { type: MyButton, x: i * (300 + 30), item: { label: `Train`, src: Utils.asset(`images/cardImage${i + 1}.jpg`)} }, 
       );
     }
 
@@ -196,7 +196,7 @@ export  class App extends Lightning.Component {
 
   $onItemSelect(obj) {
    
-    const url = obj.videoUrl;
+    const url = 'https://amssamples.streaming.mediaservices.windows.net/683f7e47-bd83-4427-b0a3-26a6c4547782/BigBuckBunny.ism/manifest(format=mpd-time-csf)';
     this._player = new AAMPMediaPlayer();
     this._player.load(url);
     this._setState("VideoPlay");

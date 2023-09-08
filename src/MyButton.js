@@ -5,6 +5,7 @@ export class MyButton extends Lightning.Component {
     return {
       w: 300,
       h: 450,
+      y: 180,
       Image: {
         w: w => w,
         h: h => h - 50,
@@ -26,7 +27,7 @@ export class MyButton extends Lightning.Component {
     console.log('Enter pressed');
     // this.signal("onClick");
     this.fireAncestors('$onItemSelect', {
-      videoUrl: this._videoUrl
+     // videoUrl: this._videoUrl
       // item: this._item,
 
     })
