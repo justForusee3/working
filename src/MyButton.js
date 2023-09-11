@@ -5,8 +5,10 @@ export class MyButton extends Lightning.Component {
     return {
       w: 300,
       h: 450,
+      
       y: 180,
       Image: {
+        x: 80,
         w: w => w,
         h: h => h - 50,
       },

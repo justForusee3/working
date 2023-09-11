@@ -35,7 +35,8 @@ export  class App extends Lightning.Component {
         y: 0,
         rect: true,
         color: 0xffffffff,
-        src: Utils.asset('images/background.png'),
+        src: Utils.asset('images/dark9.jpg'),
+        
         FireboltStatus: {
           // Lifecycle: {
           //   mountX: 0.5,
@@ -48,16 +49,16 @@ export  class App extends Lightning.Component {
           //   },
           // },
           Rdklogo: {
-            x: 50,
+            x: 70,
             y: 50,
             w: 300,
-            h: 80,
-            zIndex: 1,
+            h: 100,
+            zIndex: 10,
             shadowColor: 0xffff00ff,
-            src: Utils.asset("images/rdklogo.png"),
+            src: Utils.asset("images/rdk-logo.gif"),
           },
           Alexalogo: {
-            x: 1200,
+            x: 1050,
             y: 5,
             w: 150,
             h: 150,
@@ -65,18 +66,31 @@ export  class App extends Lightning.Component {
           },
          
           Belllogo: {
-            x: 1400,
-            y: 20,
+            x: 1250,
+            y: 30,
             w: 100,
             h: 100,
             src: Utils.asset("images/sett.png"),
           },
           Notifilogo: {
-            x: 1600,
-            y: 20,
+            x: 1450,
+            y: 30,
             w: 100,
             h: 100,
             src: Utils.asset("images/noti.png"),
+          },
+          CurrentTime: {
+            mountX: 0.5,
+            x: 1700,
+            y: 40,
+            w: 200,
+            h: 100,// Adjust the Y position as needed
+            text: {
+              text: "",
+              fontFace: "Regular",
+              fontSize: 70,
+              textColor: 0xff09f676,
+            },
           },
           Device: {
             mountX: 0.5,
@@ -191,6 +205,12 @@ export  class App extends Lightning.Component {
     }
 
     this.tag('Wrapper').children = buttons;
+    this._updateCurrentTime();
+
+  // Update the time every second (1000 milliseconds)
+  setInterval(() => {
+    this._updateCurrentTime();
+  }, 1000);
     
   }
 
@@ -205,6 +225,14 @@ export  class App extends Lightning.Component {
   }
   
 
+  _updateCurrentTime() {
+    const currentTime = new Date();
+    const hours = currentTime.getHours().toString().padStart(2, "0");
+    const minutes = currentTime.getMinutes().toString().padStart(2, "0");
+    const seconds = currentTime.getSeconds().toString().padStart(2, "0");
+    const formattedTime = `${hours}:${minutes}`;
+    this.tag("CurrentTime").text.text = `${formattedTime}`;
+  }
   
   repositionWrapper() {
     const wrapper = this.tag('Wrapper');
@@ -303,15 +331,15 @@ export  class App extends Lightning.Component {
     console.log("active set state to launchView");
     this._setState("LaunchView");
 
-    Device.audio().then((supportedAudioProfiles) => {
-      const newAudio = "audio profile **" + supportedAudioProfiles.stereo;
-      //Log.info(supportedAudioProfiles.stereo);
-      Log.info("Device", newAudio);
-      //this.tag('Device').text.text = newAudio + ' :: ';
-      this.tag("Device").text.text = supportedAudioProfiles + " :: ";
-      //console.log("Is stereo supported",supportedAudioProfiles.stereo);
-      console.log("Is stereo supported", supportedAudioProfiles.stereo);
-    });
+    // Device.audio().then((supportedAudioProfiles) => {
+    //   const newAudio = "audio profile **" + supportedAudioProfiles.stereo;
+    //   //Log.info(supportedAudioProfiles.stereo);
+    //   Log.info("Device", newAudio);
+    //   //this.tag('Device').text.text = newAudio + ' :: ';
+    //   this.tag("Device").text.text = supportedAudioProfiles + " :: ";
+    //   //console.log("Is stereo supported",supportedAudioProfiles.stereo);
+    //   console.log("Is stereo supported", supportedAudioProfiles.stereo);
+    // });
    
     Device.distributor().then((distributor) => {
       const deviceDistributor = "distributor:" + distributor;
